@@ -1,0 +1,23 @@
+#Nome do workflow
+name: NoesisAcademy
+
+#Acção para iniciar o workflow
+on: [push]
+
+#Acção a executar do workflow
+jobs:
+  Testes_API:
+    #Máquina onde vai ser executada o workflow
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/chekout@v3
+
+      - name: Testes
+        run:  |
+          docker run \
+          -v $(PWD)/reports:/opt/robotframework/reports:Z \
+          -v $(PWD)/tests:/opt/robotfrmework/tests:Z \
+          --user $(id -u):$(id -g) \
+          ppodgorsek/robot-framework:latest
